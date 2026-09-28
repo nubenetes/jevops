@@ -1,0 +1,33 @@
+# Kyverno Policy / ValidatingWebhookConfiguration for JevOps Semantic Action Gate
+# Prevents autonomous agents from applying over-permissive network policies or destructive cascades.
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: jevops-action-gate
+  labels:
+    app.kubernetes.io/name: jevops
+    app.kubernetes.io/component: admission-gate
+webhooks:
+  - name: actiongate.jevops.io
+    rules:
+      - apiGroups: ["networking.k8s.io", "apps", ""]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE", "DELETE"]
+        resources: ["networkpolicies", "deployments", "statefulsets", "pods"]
+        scope: "Namespaced"
+    clientConfig:
+      service:
+        name: jevops-action-gate
+        namespace: jevops-system
+        path: "/validate"
+        port: 8443
+    admissionReviewVersions: ["v1"]
+    sideEffects: None
+    timeoutSeconds: 3
+    # Fail-safe setting: Fail blocks destructive changes if webhook is down
+    failurePolicy: Fail
+    namespaceSelector:
+      matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: NotIn
+          values: ["kube-system", "openshift-system", "jevops-system"]

@@ -1,0 +1,8 @@
+# Google Kubernetes Engine (GKE) Workload Identity Federation
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jevops-sa
+  namespace: jevops-system
+  annotations:
+    iam.gke.io/gcp-service-account: "jevops-decider@PROJECT_ID.iam.gserviceaccount.com"

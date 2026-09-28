@@ -1,0 +1,63 @@
+# Default values for jevops-suite.
+global:
+  platform: openshift-airgap # Options: openshift-airgap, openshift-cloud, aks, eks, gke
+  namespace: jevops-system
+
+replicaCount: 2
+
+image:
+  repository: ghcr.io/nubenetes/jevops-decision-engine
+  pullPolicy: IfNotPresent
+  tag: "v0.1.0"
+
+serviceAccount:
+  create: true
+  name: jevops-sa
+  annotations: {}
+
+securityContext:
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+
+route:
+  enabled: true # For OpenShift
+  tls:
+    termination: edge
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# JevOps Operational Config
+config:
+  mode: airgap # "airgap" or "cloud"
+  typesafeApiKey: ""
+  typesafeEndpoint: "https://api.typesafe.ai/v1/systemone"
+  latencySlaMs: 250
+  circuitBreakerMaxFailures: 3
+  failTowardNoise: true
+
+# Semantic Action Gatekeeper
+actionGate:
+  enabled: true
+  port: 8443
+  failurePolicy: Fail

@@ -1,0 +1,14 @@
+# Google Cloud Managed Service for Prometheus (GMP) & OTel
+apiVersion: monitoring.googleapis.com/v1
+kind: PodMonitoring
+metadata:
+  name: jevops-podmonitoring
+  namespace: jevops-system
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jevops-decision-engine
+  endpoints:
+    - port: http
+      interval: 15s
+      path: /metrics

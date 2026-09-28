@@ -1,0 +1,42 @@
+# Air-Gapped Network Policy: Guarantees zero egress to external internet
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: jevops-airgap-isolation
+  namespace: jevops-system
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Allow traffic within the same namespace
+    - from:
+        - podSelector: {}
+    # Allow OpenTelemetry collectors and admission webhooks from other namespaces
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: openshift-logging
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: openshift-opentelemetry-operator
+      ports:
+        - protocol: TCP
+          port: 8080
+        - protocol: TCP
+          port: 8443
+  egress:
+    # Allow CoreDNS within the cluster only
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: openshift-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # Allow intra-namespace communication
+    - to:
+        - podSelector: {}

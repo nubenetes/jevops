@@ -1,0 +1,5 @@
+# Air-Gapped Decision Server Dependencies
+# Note: The server is self-contained with pure Python standard library,
+# but can optionally utilize fastapi and uvicorn for extreme concurrency.
+fastapi>=0.100.0; extra == "fastapi"
+uvicorn>=0.20.0; extra == "fastapi"

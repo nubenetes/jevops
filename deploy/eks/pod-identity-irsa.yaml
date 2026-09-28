@@ -1,0 +1,8 @@
+# AWS Elastic Kubernetes Service (EKS) Pod Identity / IRSA
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jevops-sa
+  namespace: jevops-system
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::123456789012:role/JevOpsEksDeciderRole"

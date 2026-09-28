@@ -1,0 +1,27 @@
+# AWS Distro for OpenTelemetry (ADOT) Collector Configuration
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: jevops-adot
+  namespace: jevops-system
+spec:
+  mode: daemonset
+  config: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+    exporters:
+      awsxray:
+        region: us-east-1
+      awsemf:
+        region: us-east-1
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          exporters: [awsxray]
+        metrics:
+          receivers: [otlp]
+          exporters: [awsemf]

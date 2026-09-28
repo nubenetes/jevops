@@ -1,0 +1,18 @@
+# OpenShift Route with Re-encrypt TLS termination
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: jevops-decision-route
+  namespace: jevops-system
+  annotations:
+    haproxy.router.openshift.io/timeout: 2s
+spec:
+  to:
+    kind: Service
+    name: jevops-decision-server
+    weight: 100
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

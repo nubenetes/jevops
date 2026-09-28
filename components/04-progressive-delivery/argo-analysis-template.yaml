@@ -1,0 +1,29 @@
+# Argo Rollouts AnalysisTemplate calling JevOps Decision Controller
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: jevops-canary-semantic-gate
+  namespace: jevops-system
+spec:
+  metrics:
+    - name: semantic-decision-check
+      interval: 30s
+      count: 5
+      provider:
+        web:
+          url: "http://jevops-decision-server.jevops-system.svc.cluster.local:8080/v1/systemone"
+          timeoutSeconds: 3
+          headers:
+            - key: Content-Type
+              value: "application/json"
+          jsonBody:
+            context: "Evaluating canary traffic metrics and recent error logs"
+            questions:
+              - id: "canary_action"
+                type: "choice"
+                prompt: "Determine canary promotion action"
+                options: ["promote", "hold", "rollback"]
+          jsonPath: "{$.results.canary_action.selected}"
+      # Success condition: action is promote or hold (hold doesn't fail rollout, rollback aborts)
+      successCondition: "result == 'promote' || result == 'hold'"
+      failureLimit: 1

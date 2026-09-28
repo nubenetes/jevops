@@ -1,0 +1,19 @@
+apiVersion: v2
+name: jevops-suite
+description: Production Helm chart for JevOps Decision Models across OpenShift 4.20+, AKS, EKS, and GKE
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords:
+  - jevops
+  - decision-models
+  - opentelemetry
+  - kubernetes
+  - openshift
+  - sre
+home: https://github.com/nubenetes/jevops
+sources:
+  - https://github.com/nubenetes/jevops
+maintainers:
+  - name: Nubenetes
+    email: info@nubenetes.com

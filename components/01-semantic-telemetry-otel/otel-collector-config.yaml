@@ -1,0 +1,79 @@
+# OpenTelemetry Collector Configuration with JevOps Decision Pipeline
+# Compatible with Red Hat OpenShift 4.20+ (OpenShift Distributed Tracing / OTel Operator),
+# AKS, EKS (ADOT), and GKE.
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+    timeout: 1s
+    send_batch_size: 256
+
+  memory_limiter:
+    check_interval: 1s
+    limit_percentage: 75
+    spike_limit_percentage: 20
+
+  # Transform processor simulating Jev triage tagging
+  transform/jev_metadata:
+    error_mode: ignore
+    log_statements:
+      - context: log
+        statements:
+          - set(attributes["jev.processed"], "true")
+          - set(attributes["platform"], "cloud-native-k8s")
+
+exporters:
+  # Primary Warm Tier (Elasticsearch, Loki, OpenShift Logging)
+  otlp/warm_tier:
+    endpoint: "otel-collector-warm:4317"
+    tls:
+      insecure: true
+
+  # Cold Archive (Low-cost S3 / Ceph / MinIO / OpenShift Data Foundation)
+  otlp/cold_archive:
+    endpoint: "otel-collector-cold:4317"
+    tls:
+      insecure: true
+
+  # Prometheus / Mimir metrics exporter
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    namespace: "jevops"
+
+  logging:
+    verbosity: detailed
+
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+  zpages:
+    endpoint: 0.0.0.0:55679
+
+service:
+  extensions: [health_check, zpages]
+  pipelines:
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, batch, transform/jev_metadata]
+      exporters: [otlp/warm_tier, otlp/cold_archive]
+
+    metrics:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [prometheus]
+
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, batch]
+      exporters: [otlp/warm_tier]
+
+  telemetry:
+    logs:
+      level: info

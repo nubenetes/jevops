@@ -1,0 +1,10 @@
+# Azure Kubernetes Service (AKS) Workload Identity Integration
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jevops-sa
+  namespace: jevops-system
+  annotations:
+    azure.workload.identity/client-id: "00000000-0000-0000-0000-000000000000"
+  labels:
+    azure.workload.identity/use: "true"

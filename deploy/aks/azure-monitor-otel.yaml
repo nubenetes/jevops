@@ -1,0 +1,21 @@
+# Azure Monitor OpenTelemetry Pipeline Integration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jevops-azure-monitor-config
+  namespace: jevops-system
+data:
+  otel-collector-config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: "0.0.0.0:4317"
+    exporters:
+      azuremonitor:
+        connection_string: "${APPLICATIONINSIGHTS_CONNECTION_STRING}"
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          exporters: [azuremonitor]
