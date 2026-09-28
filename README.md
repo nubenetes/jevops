@@ -22,6 +22,107 @@
 
 ---
 
+<a id="quick-navigation-map"></a>
+## 🗺️ Quick Navigation Map
+
+This architectural reference implements an end-to-end framework for embedding **System 1 Decision Models** directly into cloud-native operational pipelines—supporting **Red Hat OpenShift 4.20+ (air-gapped disconnected)** and hyperscalers (**AKS**, **EKS**, **GKE**). Use this interactive map to navigate all platform components, Helm charts, automated tests, and multimedia walkthroughs:
+
+### 🧭 Repository Architecture Blueprint
+```text
+jevops/                                      # ⚡ System 1 Decision Models for Cloud-Native Infrastructure
+├── 📁 airgap-decision-server/               # Offline Decision Server & Local Sidecar Engine
+│   ├── 📄 Dockerfile                        # Air-gapped container image definition
+│   ├── 📄 requirements.txt                  # Minimal dependencies (FastAPI, uvicorn, pydantic)
+│   └── 📄 server.py                         # Submillisecond local REST decision server
+├── 📁 components/                           # Production Cloud-Native Architectural Components
+│   ├── 📁 01-semantic-telemetry-otel/       # In-line OpenTelemetry telemetry processors
+│   │   ├── 📄 jevlogs_triage.py             # Log triage & anomaly routing (HDFS/BGL benchmark)
+│   │   ├── 📄 jevmetrics_processor.py       # Metric churn reducer & metadata evaluator
+│   │   ├── 📄 jevtraces_tail_sampler.py     # Distributed trace span evaluation & tail sampler
+│   │   ├── 📄 jevbrief_compressor.py        # Context compression (1447 logs to 23 clusters)
+│   │   └── 📄 otel-collector-config.yaml    # Declarative OpenTelemetry Collector pipeline
+│   ├── 📁 02-k8s-semantic-action-gate/      # Kubernetes Dynamic Admission Webhook & Policy Gate
+│   │   ├── 📄 webhook_server.py             # Semantic admission controller interceptor
+│   │   ├── 📄 gatekeeper_evaluator.py       # Gatekeeper/OPA policy evaluator for dangerous actions
+│   │   └── 📄 kyverno-policy.yaml           # Kyverno declarative policy definition
+│   ├── 📁 03-sre-agent-dual-loop/           # SRE Autonomous Agent Dual-Loop Architecture
+│   │   ├── 📄 sre_supervisor.py             # Fast System 1 supervisor gating System 2 claims
+│   │   └── 📄 mock_reasoning_agent.py       # Simulated open-ended LLM diagnostic agent
+│   ├── 📁 04-progressive-delivery/          # Canary Deployment & Automated State Machine
+│   │   ├── 📄 canary_state_machine.py       # Deterministic hold, promote, rollback controller
+│   │   └── 📄 argo-analysis-template.yaml   # Argo Rollouts declarative AnalysisTemplate
+│   ├── 📁 05-incident-decomposition/        # Confidence-Gated Alert & Security Triage
+│   │   ├── 📄 triage_router.py              # Exact lookup + semantic routing + human escalation
+│   │   └── 📄 secops_pipeline.py            # Multi-stage security incident containment
+│   └── 📁 06-ci-semantic-pathfinder/        # Intelligent CI Runner & Test Suite Pruning
+│       └── 📄 pathfinder.py                 # Semantic git diff analysis for targeted test runs
+├── 📁 core/                                 # Core JevOps Python Client & Local Execution Engine
+│   ├── 📁 jevops_core/                      # Core module implementation
+│   │   ├── 📄 primitives.py                 # Strictly typed primitives (Choice, Score, Noul)
+│   │   ├── 📄 client.py                     # High-performance REST client with circuit breaker
+│   │   ├── 📄 local_engine.py               # Deterministic submillisecond local engine
+│   │   └── 📄 fallback.py                   # John Rood's Law degraded default strategies
+│   └── 📄 pyproject.toml                    # Package metadata & build definition
+├── 📁 demos/                                # Zero-Dependency Interactive Scenarios
+│   ├── 📄 demo1_otel_log_triage.py          # 250 log records triage (100% anomaly recall)
+│   ├── 📄 demo2_k8s_action_gate.py          # Blocks 0.0.0.0/0 Postgres exposure
+│   ├── 📄 demo3_sre_dual_loop.py            # Gates premature diagnosis & verifies mitigation
+│   ├── 📄 demo4_canary_rollback.py          # Latency spike & deadlock -> instant rollback
+│   ├── 📄 demo5_airgap_and_failover.py      # Circuit breaker & "Fail Toward Noise" validation
+│   └── 📄 run_all_demos.sh                  # One-click execution of all 5 scenarios
+├── 📁 deploy/                               # Multi-Platform Enterprise Deployment Manifests
+│   ├── 📁 openshift-4.20/                   # Red Hat OpenShift air-gapped manifests
+│   │   ├── 📄 scc-restricted-v2.yaml        # restricted-v2 SCC compliance
+│   │   ├── 📄 local-decision-engine-pod.yaml# Local sidecar pod deployment
+│   │   ├── 📄 network-policy.yaml           # Zero-trust cluster ingress/egress policies
+│   │   ├── 📄 route-tls.yaml                # Edge TLS re-encrypt OpenShift Route
+│   │   └── 📄 oc-mirror-imageset.yaml       # Disconnected registry mirroring configuration
+│   ├── 📁 aks/                              # Microsoft Azure Kubernetes Service (Workload ID)
+│   ├── 📁 eks/                              # Amazon Elastic Kubernetes Service (IRSA)
+│   └── 📁 gke/                              # Google Kubernetes Engine (Workload Identity)
+├── 📁 docs/                                 # Exhaustive Architectural Documentation & Guides
+│   ├── 📄 01-jevops-manifesto.md            # Foundational philosophy: System 1 vs System 2
+│   ├── 📄 02-reference-atlas.md             # Complete breakdown of all 12 literature references
+│   ├── 📄 03-airgap-openshift-4-20.md        # Air-gapped disconnected OpenShift 4.20+ guide
+│   ├── 📄 04-hyperscaler-architectures.md   # Production deployment on AKS, EKS, and GKE
+│   └── 📄 05-resilience-and-fallbacks.md    # Circuit breaking & John Rood's Law specification
+├── 📁 helm/                                 # Production Helm 3 Packaging
+│   └── 📁 jevops-suite/                     # Umbrella chart with AKS/EKS/GKE/OpenShift presets
+└── 📁 tests/                                # Automated Unit & Verification Test Suite
+    ├── 📄 test_core_primitives.py           # Verification of typed schemas & calibrations
+    ├── 📄 test_otel_processors.py           # Verification of log, metric, trace filters
+    ├── 📄 test_k8s_action_gate.py           # Admission gate security rules validation
+    ├── 📄 test_resilience_circuit_breaker.py# Circuit breaker SLA & degraded defaults tests
+    └── 📄 test_airgap_local_engine.py       # Offline local engine benchmarking (under 1ms)
+```
+
+<a id="ai-multimedia-series"></a>
+## 🎬 AI-Generated Multimedia Series (YouTube)
+
+This repository is accompanied by an educational video masterclass series and technical shorts synthesized with **Gemini NotebookLM** based directly on the System 1 decision models, air-gapped OpenShift 4.20+ blueprints, and resilient cloud-native patterns from this project. All videos are freely accessible on YouTube on the [**@nubenetes**](https://youtube.com/@nubenetes) channel.
+
+> [!NOTE]
+> **Multilingual Learning Experience**:  
+> Content features sessions with original spoken audio in **English 🇺🇸**, with automated YouTube closed captions (CC) translated into **20+ languages** for global platform engineering and SRE teams.
+
+### 📽️ Full-Length Technical Deep Dives (Architecture Masterclasses)
+
+| # | Video Guide Title | Engineering Domain & Core Architecture | Audio | Duration | Direct Link |
+|:---:|:---|:---|:---:|:---:|:---:|
+| **01** | [JevOps Masterclass: System 1 Decision Models](https://www.youtube.com/watch?v=fWuANFzkH7E) | **Architectural Foundation & Dual-Loop SRE**<br/>The AI bottleneck, strictly typed primitives, telemetry gates & resilient defaults | 🇺🇸 EN | `10:49` | [▶️ Watch](https://www.youtube.com/watch?v=fWuANFzkH7E) |
+| **02** | [JevOps Guide: Multi-Platform Deployment](https://www.youtube.com/watch?v=T7F0ngoCVJY) | **Air-Gapped OpenShift 4.20+ & Cloud GitOps**<br/>restricted-v2 SCC, oc-mirror, Helm 3 for AKS/EKS/GKE, CI pathfinder | 🇺🇸 EN | `7:33` | [▶️ Watch](https://www.youtube.com/watch?v=T7F0ngoCVJY) |
+
+### ⚡ Video Shorts Matrix
+
+| # | Short Title | Architectural Domain & Focus | Audio | Duration | Action |
+|:---:|:---|:---|:---:|:---:|:---:|
+| **01** | [How System 1 Decision Models Filter Kubernetes](https://www.youtube.com/shorts/4OCgH8OY-vs) | **In-Line Telemetry Triage**<br/>Submillisecond log filtering, dropping 99% noise & fail-open circuit breakers | 🇺🇸 EN | `1:25` | [▶️ Watch](https://www.youtube.com/shorts/4OCgH8OY-vs) |
+| **02** | [How AI Fails Safely in Cloud Infrastructure](https://www.youtube.com/shorts/XAzQerywCQw) | **Operational Resilience**<br/>John Rood's Law of Degraded Defaults, fail-safe vs fail-toward-noise | 🇺🇸 EN | `1:10` | [▶️ Watch](https://www.youtube.com/shorts/XAzQerywCQw) |
+
+*For complete technical summaries, topic breakdowns, and direct studio links, see [Video Walkthroughs & Architecture References](#video-walkthroughs).*
+
+---
+
 ## 📖 Overview
 
 **JevOps** implements the full operational paradigm and all referenced systems from Josh Rosen's foundational article on **Decision Models in DevOps**.
@@ -166,6 +267,72 @@ python3 -m unittest discover -s tests -p "test_*.py" -v
 All 11 tests pass with zero external pip dependencies.
 
 ---
+
+---
+
+<a id="video-walkthroughs"></a>
+## 📺 Video Walkthroughs & Architecture References (YouTube)
+
+Architectural deep dives, video walkthroughs, and technical shorts for `jevops`, System 1 decision models, air-gapped OpenShift 4.20+ deployments, and resilient cloud-native pipelines are hosted on the **[Nubenetes YouTube Channel (@nubenetes)](https://www.youtube.com/@nubenetes)**.
+
+<details open>
+<summary>📂 <strong>Full-Length Technical Deep Dives (Architecture Masterclasses)</strong></summary>
+
+<br/>
+
+##### 1. JevOps Masterclass: System 1 Decision Models for Cloud-Native Infrastructure & DevOps
+- 🔗 **Direct Link**: [https://www.youtube.com/watch?v=fWuANFzkH7E](https://www.youtube.com/watch?v=fWuANFzkH7E)
+- 🌐 **Origin Language**: English 🇺🇸 (Subtitles in 20+ languages)
+- ⏱️ **Duration**: 10:49
+- 🏷️ **Engineering Domain**: Architectural Deep Dive, System 1 vs System 2, Dual-Loop SRE & Resilient Cloud Pipelines
+- 📝 **Technical Overview**:
+Complete architectural masterclass exploring why traditional generative LLMs break down in high-throughput cloud-native environments (2-15s latency, 0/1M tokens, hallucinatory prose) and how System 1 Decision Models solve the bottleneck. Covers reflexive micro-cost judgments (bash.042/1M tokens, under 1ms local latency), strictly typed schema primitives (Choice, Score, Noul), SRE dual-loop supervisory architectures (SREGym Lite), semantic telemetry filtering in OpenTelemetry Collectors (JevLogs, JevMetrics, JevTraces), Kubernetes admission mutation gates, progressive canary state machines, and John Rood's Law of Degraded Defaults.
+- 🛠️ **Direct Links**: [Watch on YouTube](https://www.youtube.com/watch?v=fWuANFzkH7E) | [Edit in YouTube Studio](https://studio.youtube.com/video/fWuANFzkH7E/edit)
+
+##### 2. JevOps Guide: Deploying System 1 Decision Models on OpenShift 4.20+ & Hyperscalers
+- 🔗 **Direct Link**: [https://www.youtube.com/watch?v=T7F0ngoCVJY](https://www.youtube.com/watch?v=T7F0ngoCVJY)
+- 🌐 **Origin Language**: English 🇺🇸 (Subtitles in 20+ languages)
+- ⏱️ **Duration**: 7:33
+- 🏷️ **Engineering Domain**: Operational Deployment Guide, Air-Gapped OpenShift 4.20+, Hyperscalers & CI/CD
+- 📝 **Technical Overview**:
+Hands-on operational deployment and lifecycle guide for running System 1 Decision Models across disconnected enterprise datacenters and multi-cloud Kubernetes. Details Day 1 deployment on air-gapped Red Hat OpenShift 4.20+ with restricted-v2 SecurityContextConstraints, local container sidecars, and oc-mirror ImageSet configurations; multi-cloud Helm 3 charts for AKS, EKS, and GKE; Day 2 telemetry churn reduction and massive SIEM storage cost savings; intelligent pull request test suite pruning via Jev CI Pathfinder; and automated circuit breaking with fail-toward-noise fallbacks.
+- 🛠️ **Direct Links**: [Watch on YouTube](https://www.youtube.com/watch?v=T7F0ngoCVJY) | [Edit in YouTube Studio](https://studio.youtube.com/video/T7F0ngoCVJY/edit)
+
+</details>
+
+<details open>
+<summary>📂 <strong>Technical Shorts Matrix & Architecture Breakdowns</strong></summary>
+
+<br/>
+
+### ⚡ Video Shorts Matrix
+
+| # | Short Title | Architectural Domain & Focus | Audio | Duration | Action |
+|:---:|:---|:---|:---:|:---:|:---:|
+| **01** | [How System 1 Decision Models Filter Kubernetes](https://www.youtube.com/shorts/4OCgH8OY-vs) | **In-Line Telemetry Triage**<br/>Submillisecond log filtering, dropping 99% noise & fail-open circuit breakers | 🇺🇸 EN | `1:25` | [▶️ Watch](https://www.youtube.com/shorts/4OCgH8OY-vs) |
+| **02** | [How AI Fails Safely in Cloud Infrastructure](https://www.youtube.com/shorts/XAzQerywCQw) | **Operational Resilience**<br/>John Rood's Law of Degraded Defaults, fail-safe vs fail-toward-noise | 🇺🇸 EN | `1:10` | [▶️ Watch](https://www.youtube.com/shorts/XAzQerywCQw) |
+
+<br/>
+
+##### 1. How System 1 Decision Models Filter Kubernetes Logs at Submillisecond Speeds
+- 🔗 **Direct Link**: [https://www.youtube.com/shorts/4OCgH8OY-vs](https://www.youtube.com/shorts/4OCgH8OY-vs)
+- 🌐 **Origin Language**: English 🇺🇸 (Subtitles in 20+ languages)
+- ⏱️ **Duration**: 1:25
+- 🏷️ **Engineering Domain**: In-Line Telemetry Triage, Submillisecond Filtering & K8s Admission Gates
+- 📝 **Technical Overview**:
+How System 1 decision models make submillisecond judgments directly inside high-volume Kubernetes telemetry streams without generating open-ended text. Explains dropping 99% of routine log noise while routing high-confidence anomalies to warm storage, blocking dangerous configuration exposures (such as 0.0.0.0/0 database exposure), and using fail-open circuit breakers to prevent data loss.
+- 🛠️ **Direct Links**: [Watch Short](https://www.youtube.com/shorts/4OCgH8OY-vs) | [Edit in YouTube Studio](https://studio.youtube.com/video/4OCgH8OY-vs/edit)
+
+##### 2. How AI Fails Safely in Cloud Infrastructure: John Rood's Law Explained
+- 🔗 **Direct Link**: [https://www.youtube.com/shorts/XAzQerywCQw](https://www.youtube.com/shorts/XAzQerywCQw)
+- 🌐 **Origin Language**: English 🇺🇸 (Subtitles in 20+ languages)
+- ⏱️ **Duration**: 1:10
+- 🏷️ **Engineering Domain**: Operational Resilience, Degraded Defaults & Circuit Breakers
+- 📝 **Technical Overview**:
+How John Rood's Law of Degraded Defaults stops AI gatekeeper failures from crashing cloud infrastructure. Details why operational decisions must be categorized by reversibility: failing safe (hardlocking) on irreversible mutations like database deployments, and failing toward noise (passing logs and paging on-call engineers) on reversible operational alerts, backed by a 250ms circuit breaker.
+- 🛠️ **Direct Links**: [Watch Short](https://www.youtube.com/shorts/XAzQerywCQw) | [Edit in YouTube Studio](https://studio.youtube.com/video/XAzQerywCQw/edit)
+
+</details>
 
 ## ⚠️ Disclaimer & Architectural Reference
 
