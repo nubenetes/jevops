@@ -1,5 +1,8 @@
 # Hyperscaler Reference Architectures: AKS, EKS, and GKE
 
+| [← Prev: **03. Air-Gap OpenShift 4.20+**](03-airgap-openshift-4-20.md) | [🏠 **Home (README)**](../README.md) | [Next: **05. Resilience & Fallbacks** →](05-resilience-and-fallbacks.md) |
+| :--- | :---: | ---: |
+
 This guide provides deployment patterns and blueprints for running JevOps across the major public cloud managed Kubernetes services.
 
 ---
@@ -65,3 +68,9 @@ metadata:
 | **Telemetry Collector** | Red Hat OpenTelemetry Operator | Azure Monitor OTel | AWS ADOT Collector | GMP + Cloud Trace |
 | **Air-Gap Capable** | **Native (oc-mirror v2)** | Restricted Virtual Networks | Isolated VPC Enclaves | Private GKE Clusters |
 | **Helm Values Profile** | `--set global.platform=openshift-airgap` | `--set global.platform=aks` | `--set global.platform=eks` | `--set global.platform=gke` |
+
+---
+
+| [← Prev: **03. Air-Gap OpenShift 4.20+**](03-airgap-openshift-4-20.md) | [🏠 **Home (README)**](../README.md) | [Next: **05. Resilience & Fallbacks** →](05-resilience-and-fallbacks.md) |
+| :--- | :---: | ---: |
+

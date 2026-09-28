@@ -1,5 +1,8 @@
 # Operational Resilience & Degraded Defaults: John Rood's Law
 
+| [← Prev: **04. Hyperscalers (AKS/EKS/GKE)**](04-hyperscaler-architectures.md) | [🏠 **Home (README)**](../README.md) | [Restart: **01. JevOps Manifesto** →](01-jevops-manifesto.md) |
+| :--- | :---: | ---: |
+
 > *"The spec missing from every one of these: what the pipeline does when the decider is down or slow. Pick the degraded default per decision, and pick it toward noise: keep everything, page anyway. The only calls that get to fail quiet are the reversible ones."*  
 > — **John Rood** ([@johnroodepic](https://x.com/johnroodepic/status/2104206564429337061))
 
@@ -63,3 +66,9 @@ The JevOps SDK includes a stateful circuit breaker in [`core/jevops_core/fallbac
 - **Trip Conditions**: 3 consecutive breaches transition state from `CLOSED` to `OPEN`.
 - **Zero Pipeline Blocking**: When `OPEN`, the client bypasses HTTP requests entirely, resolving local degraded defaults in `<0.01ms`.
 - **Self-Healing**: After a 15-second cooldown, probes in `HALF_OPEN` state to resume normal operation automatically.
+
+---
+
+| [← Prev: **04. Hyperscalers (AKS/EKS/GKE)**](04-hyperscaler-architectures.md) | [🏠 **Home (README)**](../README.md) | [Restart: **01. JevOps Manifesto** →](01-jevops-manifesto.md) |
+| :--- | :---: | ---: |
+

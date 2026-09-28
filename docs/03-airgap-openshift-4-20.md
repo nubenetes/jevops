@@ -1,5 +1,8 @@
 # Enterprise Guide: Deploying JevOps on Red Hat OpenShift 4.20+
 
+| [← Prev: **02. Reference Atlas**](02-reference-atlas.md) | [🏠 **Home (README)**](../README.md) | [Next: **04. Hyperscalers (AKS/EKS/GKE)** →](04-hyperscaler-architectures.md) |
+| :--- | :---: | ---: |
+
 This guide details the deployment of JevOps across **Red Hat OpenShift 4.20+**, with specific focus on **on-premises air-gapped / disconnected enclaves** as well as managed cloud variants (ROSA, ARO, and OpenShift on GCP).
 
 ---
@@ -99,3 +102,9 @@ oc set env deployment/jevops-decision-engine -n jevops-system \
   TYPESAFE_API_KEY="sk-..." \
   HTTPS_PROXY="http://corp-proxy.local:8080"
 ```
+
+---
+
+| [← Prev: **02. Reference Atlas**](02-reference-atlas.md) | [🏠 **Home (README)**](../README.md) | [Next: **04. Hyperscalers (AKS/EKS/GKE)** →](04-hyperscaler-architectures.md) |
+| :--- | :---: | ---: |
+

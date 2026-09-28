@@ -1,5 +1,8 @@
 # The JevOps Manifesto: Decision Models in Cloud-Native DevOps
 
+| [🏠 **Home (README)**](../README.md) | [📚 **Doc Index**](../README.md#-complete-reference-atlas) | [Next: **02. Reference Atlas** →](02-reference-atlas.md) |
+| :--- | :---: | ---: |
+
 > *"DevOps may be one of the largest untapped use cases for decision models... DevOps is packed with exactly the kind of small semantic decisions Jev is built to make."*  
 > — **Josh Rosen** ([@JoshARosen](https://x.com/JoshARosen/status/2104201747732271519))
 
@@ -83,3 +86,9 @@ Josh Rosen identifies five fundamental questions that permeate every DevOps pipe
 ## 5. Summary
 
 JevOps transforms AI from an external, conversational assistant that humans chat with after an outage into an **integral layer of software infrastructure** distributed silently throughout telemetry collectors, progressive delivery controllers, admission webhooks, and SRE supervisors.
+
+---
+
+| [🏠 **Home (README)**](../README.md) | [📚 **Doc Index**](../README.md#-complete-reference-atlas) | [Next: **02. Reference Atlas** →](02-reference-atlas.md) |
+| :--- | :---: | ---: |
+

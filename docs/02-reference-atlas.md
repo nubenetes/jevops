@@ -1,5 +1,8 @@
 # Reference Atlas: Deconstructing the 12 JevOps Projects
 
+| [← Prev: **01. JevOps Manifesto**](01-jevops-manifesto.md) | [🏠 **Home (README)**](../README.md) | [Next: **03. Air-Gap OpenShift 4.20+** →](03-airgap-openshift-4-20.md) |
+| :--- | :---: | ---: |
+
 This document provides a comprehensive technical examination of every reference and community project cited in Josh Rosen's foundational article.
 
 ---
@@ -117,3 +120,9 @@ This document provides a comprehensive technical examination of every reference 
   - Jev evaluates canary health at transition points: `HOLD`, `PROMOTE`, or `ROLLBACK`.
   - Temporal handles retries and durable state without asking Jev to re-make decisions.
 - **JevOps Implementation**: [`components/04-progressive-delivery/`](../components/04-progressive-delivery/) and [`demos/demo4_canary_rollback.py`](../demos/demo4_canary_rollback.py).
+
+---
+
+| [← Prev: **01. JevOps Manifesto**](01-jevops-manifesto.md) | [🏠 **Home (README)**](../README.md) | [Next: **03. Air-Gap OpenShift 4.20+** →](03-airgap-openshift-4-20.md) |
+| :--- | :---: | ---: |
+
