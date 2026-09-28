@@ -179,3 +179,65 @@ This project is an **architectural reference and educational prototype**:
 ## 📄 License
 
 Apache License 2.0. Copyright 2026 Nubenetes Authors.
+
+---
+
+## 🌐 Classified Internet References & Bibliography
+
+Below is the complete classified directory of foundational literature, community implementations, and practitioner insights utilized throughout this repository:
+
+### 1. Foundational Literature & Decision Model Theory
+- [**Josh Rosen: JevOps — Early Signs Decision Models Are Transforming DevOps**](https://x.com/JoshARosen/status/2104201747732271519)  
+  *Summary*: The foundational thesis demonstrating how System 1 decision models (exemplified by TypeSafe's Jev) provide micro-cost (~$0.04/1M tokens) and ultra-low-latency (50–250ms) structured judgments across telemetry, SRE loops, admission gates, and CI/CD.
+- [**TypeSafe AI Documentation**](https://docs.typesafe.ai) & [**Console**](https://console.typesafe.ai)  
+  *Summary*: Official documentation and developer console for the Jev "System One" decision model API (`POST /v1/systemone`), specifying `Choice`, `Score`, and `Noul` typed primitives with calibrated probabilities.
+- [**Awesome-Jev Community Index**](https://github.com/AppitStudio/awesome-jev)  
+  *Summary*: Curated community repository aggregating open-source integrations, SDKs, and workflow patterns leveraging Jev decision models.
+
+### 2. Semantic Telemetry & Observability Pipelines (Logs, Metrics, Traces)
+- [**Cribl AI Research: What TypeSafe's Jev Means for Telemetry**](https://cribl.io/blog/what-typesafes-jev-means-for-telemetry/)  
+  *Summary*: Production investigation into telemetry pipelines showing that Jev achieved 92% agreement with an LLM judge committee at 1% of the cost for parser selection, PII detection, and span eval.
+- [**Jev Logs**](https://jevlogs.com/) | [**GitHub (`reachjalil/jevlogs`)**](https://github.com/reachjalil/jevlogs)  
+  *Summary*: OpenTelemetry log exporter wrapper that scores diagnostic relevance and routes anomalous records toward warm analysis while archiving routine noise.
+- [**HuggingFace JevLogs Benchmark**](https://huggingface.co/datasets/reachjalil/jevlogs-log-triage-benchmark)  
+  *Summary*: Benchmark across sanitized HDFS and BGL supercomputer log datasets demonstrating >99.3% anomaly recall while filtering over 99% of total routine records.
+- [**Jevernetes**](https://jevlist.ai/projects/jevernetes)  
+  *Summary*: Live Kubernetes log analyzer that highlights anomalous pod events, reconstructs surrounding context windows, and provides evidence packets for coding agents with offline keyword fallbacks.
+- [**JevBrief (PyPI: `jevbrief/0.1.0`)**](https://pypi.org/project/jevbrief/0.1.0/)  
+  *Summary*: Operational context compressor that clusters thousands of raw OpenTelemetry logs into semantic templates, isolates top candidates, and selects the root-cause explanation.
+- [**JevMetrics (`ishantanu/jevmetrics`)**](https://github.com/ishantanu/jevmetrics)  
+  *Summary*: Experimental OpenTelemetry Collector metrics processor evaluating metric instrument metadata to prune redundant high-cardinality churn via `annotate`, `route`, and `reduce` modes.
+- [**JevTraces (`ishantanu/jevtraces`)**](https://github.com/ishantanu/jevtraces)  
+  *Summary*: Distributed trace span evaluation experiment optimizing OpenTelemetry tail sampling by assessing operational diagnostic utility and business criticality while preserving full raw archives.
+- [**Datadog Agent Observability: Jev Evals**](https://www.datadoghq.com/blog/jev-evals-agent-observability/)  
+  *Summary*: Real-time online evaluation of production agent spans as they arrive, verifying claims, classifying failures, and checking policy compliance in-flight.
+
+### 3. SRE Autonomous Agents & Runtime Safety Gates
+- [**SREGym Lite: SRE Agents in a Second Loop**](https://sregym.com/blog/jev-sregym-lite)  
+  *Summary*: Benchmark and architecture showing a dual-loop SRE design where a fast System 1 decision supervisor monitors an open-ended reasoning LLM, ranking diagnostic tests and gating mitigation claims to boost benchmark success from 40% to 48%.
+- [**DeepSeek Harness Jev Plugin (`buberlo/dsh-jev`)**](https://github.com/buberlo/dsh-jev)  
+  *Summary*: Semantic action gate in DeepSeek Harness Kubernetes troubleshooting that intercepts proposed mutations (e.g. broad NetworkPolicies that expose PostgreSQL) and blocks disproportionate actions before execution.
+
+### 4. Incident Response & Decomposition
+- [**Jev OnCall**](https://jevcases.com/cases/jev-oncall/)  
+  *Summary*: Incident triage framework that evaluates incoming alerts semantically while traditional deterministic code determines whether the result triggers paging, review queues, or suppression.
+- [**TypeSafe Jev Incident Router (`kyle-chalmers/typesafe-jev-incident-router`)**](https://github.com/kyle-chalmers/typesafe-jev-incident-router)  
+  *Summary*: Confidence-gated incident dispatching system using exact ownership lookups first, routing via Jev for ambiguous tickets, and delegating low-confidence outputs to human review.
+- [**Security Operations Jev Pipeline (`kenhuangus/jev-usecases`)**](https://github.com/kenhuangus/jev-usecases)  
+  *Summary*: Multi-stage SecOps experiment decomposing security incident handling across triage, blast radius scoring, automated containment gating, and closeout verification.
+
+### 5. Progressive Delivery & CI Selection
+- [**Jev Deployment State Machine**](https://stacktoheap.com/demos/jev-deployment-state-machine/)  
+  *Summary*: Progressive canary controller evaluating multi-dimensional health metrics at model-eligible rollout stages to execute deterministic `hold`, `promote`, or `rollback` transitions.
+- [**Jev and Temporal Rollback Demo (`thenoahhein/jev-temporal-demo`)**](https://github.com/thenoahhein/jev-temporal-demo)  
+  *Summary*: Combines Temporal workflow orchestration with Jev decision gates for automated canary rollback, allowing Temporal to manage durable state and retries without re-querying the model.
+- [**Jev CI Pathfinder**](https://jevlist.ai/projects/jev-ci-pathfinder)  
+  *Summary*: Intelligent CI runner that analyzes pull request git diffs semantically to select relevant optional test suites while keeping core security and lint checks always active.
+
+### 6. Operational Resilience & Practitioner Insights
+- [**John Rood on Degraded Defaults & Fail-Toward-Noise**](https://x.com/johnroodepic/status/2104206564429337061)  
+  *Summary*: Essential operational principle: when the decision model is down or slow, pipelines must pick degraded defaults toward noise (keep all telemetry, page oncall anyway) and fail quiet only on reversible calls.
+- [**Roni Rechter on DevOps and Decisions**](https://x.com/RechterRoni/status/2104227167815283098)  
+  *Summary*: Practitioner observation highlighting that *"DevOps is mostly decisions with a YAML file attached"*, emphasizing the natural fit for micro-decision models.
+- [**Mykhailo Sorochuk on Silent Pipeline Efficiency**](https://x.com/sir4K_zen/status/2104300732182831374)  
+  *Summary*: Operational analysis noting how embedding decision models silently across logs, metrics, and traces provides a subtle yet pervasive efficiency boost across the cloud-native infrastructure stack.
